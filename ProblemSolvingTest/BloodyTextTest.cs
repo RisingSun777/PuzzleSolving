@@ -19,7 +19,7 @@ namespace ProblemSolvingTest
         }
 
         [TestMethod]
-        public void GetEncryptedTextcharacterIndexes()
+        public void GetEncryptedTextcharacterIndexes_run_successfully()
         {
             string input = "ab fghhi ba";
 
@@ -64,9 +64,9 @@ namespace ProblemSolvingTest
                 }
             };
 
-            string ret = bloodyText.Solve(input);
+            char[] ret = bloodyText.Solve(input);
 
-            Assert.AreEqual("trust me i am an engineer", ret);
+            Assert.AreEqual("trust me i am an engineer", new string(ret));
         }
 
         [TestMethod]
@@ -90,11 +90,8 @@ namespace ProblemSolvingTest
                 Dictionary = "rage am holy an fairy engine tale engineer i le me my trust yes thunder truth oh april goddess beach please godzilla neo matrix mogu al capone you know tired of this sheet"
             };
 
-            char[] ret = bloodyText.Solve(input.EncryptedText.ToCharArray(), input.Dictionary, input.Substitutions);
+            char[] ret = bloodyText.Solve(input);
             Assert.AreEqual("trust me i am an engineer", new string(ret));
-
-            //string ret = bloodyText.Solve(input);
-            //Assert.AreEqual("trust me i am an engineer", ret);
         }
     }
 }

@@ -28,8 +28,12 @@ namespace ProblemSolving
             return ret;
         }
 
-        public char[] Solve(char[] encryptedTextUsingSubstitutions, string dictionary, List<char[]> substitutions)
+        public char[] Solve(Input input)
         {
+            char[] encryptedTextUsingSubstitutions = input.EncryptedText.ToCharArray();
+            string dictionary = input.Dictionary; 
+            List<char[]> substitutions = input.Substitutions;
+
             var explodedDict = dictionary.Split(' ').GroupBy(a => a.Length);
 
             int bookmarkIndex = 0;
@@ -40,25 +44,10 @@ namespace ProblemSolving
                     continue;
 
                 int textLength = i - bookmarkIndex;
+                List<int> processedIndexes = new List<int>();
 
                 var dictionaryWithAppropriateLength = explodedDict.Single(a => a.Key == textLength);
-                
-                
-                List<int> processedIndexes = new List<int>();
-                //for (int j = 0; j < textLength; ++j)
-                //{
-                //    if (!processedIndexes.Contains(j) && ReplaceWithSubstitutions(encryptedTextUsingSubstitutions, bookmarkIndex + j, substitutions))
-                //    {
-                //        processedIndexes.Add(j);
-                //        continue;
-                //    }
 
-                //    foreach (string dictText in dictionaryWithAppropriateLength)
-                //    {
-                //        tempArr[j] = dictText[j];
-                //    }
-                //}
-                
                 foreach (string dictText in dictionaryWithAppropriateLength)
                 {
                     int counter = 0;
@@ -118,35 +107,6 @@ namespace ProblemSolving
             }
 
             return false;
-        }
-       
-        [Obsolete]
-        public string Solve(Input input)
-        {
-            string ret = null;
-            string[] explodedText = input.EncryptedText.Split(' ');
-
-            Dictionary<char, List<int>> encryptedTextcharacterIndexes = GetEncryptedTextcharacterIndexes(input.EncryptedText);
-            char[] encryptedTextInCharArray = input.EncryptedText.ToCharArray();
-
-            foreach (char[] substitution in input.Substitutions)
-            {
-                if (substitution.Length == 2)
-                    if (encryptedTextcharacterIndexes.ContainsKey(substitution[0]))
-                        foreach (int index in encryptedTextcharacterIndexes[substitution[0]])
-                            encryptedTextInCharArray[index] = substitution[1];
-
-
-            }
-
-            char[] alreadyProcessedChars = input.Substitutions.Select(a => a[1]).ToArray();
-
-            //ret = new string(VerifyWithDictionary(
-            //    encryptedTextInCharArray,
-            //    input.Dictionary,
-            //    alreadyProcessedChars));
-            
-            return ret;
         }
     }
 }
