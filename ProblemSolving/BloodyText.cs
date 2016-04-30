@@ -34,17 +34,23 @@ namespace ProblemSolving
             string dictionary = input.Dictionary; 
             List<char[]> substitutions = input.Substitutions;
 
-            var explodedDict = dictionary.Split(' ').GroupBy(a => a.Length);
+            var explodedDict = dictionary == null ? null : dictionary.Split(' ').GroupBy(a => a.Length);
 
+            List<int> processedIndexes = new List<int>();
             int bookmarkIndex = 0;
 
             for (int i = 0; i <= encryptedTextUsingSubstitutions.Length; ++i)
             {
-                if (i != encryptedTextUsingSubstitutions.Length && encryptedTextUsingSubstitutions[i] != ' ')
+                if (i < encryptedTextUsingSubstitutions.Length && ReplaceWithSubstitutions(encryptedTextUsingSubstitutions, i, substitutions))
+                {
+                    processedIndexes.Add(i);
+                    continue;
+                }
+
+                if (explodedDict == null || i < encryptedTextUsingSubstitutions.Length && encryptedTextUsingSubstitutions[i] != ' ')
                     continue;
 
                 int textLength = i - bookmarkIndex;
-                List<int> processedIndexes = new List<int>();
 
                 var dictionaryWithAppropriateLength = explodedDict.Single(a => a.Key == textLength);
 
@@ -54,20 +60,7 @@ namespace ProblemSolving
 
                     for (int j = 0; j < textLength; ++j)
                     {
-                        if (!processedIndexes.Contains(j) && ReplaceWithSubstitutions(encryptedTextUsingSubstitutions, bookmarkIndex + j, substitutions))
-                        {
-                            processedIndexes.Add(j);
-
-                            if (dictText[j] == encryptedTextUsingSubstitutions[bookmarkIndex + j])
-                            {
-                                ++counter; 
-                                continue;
-                            }
-                            else
-                                break;
-                        }
-
-                        if (processedIndexes.Contains(j) && dictText[j] != encryptedTextUsingSubstitutions[bookmarkIndex + j])
+                        if (processedIndexes.Contains(bookmarkIndex + j) && dictText[j] != encryptedTextUsingSubstitutions[bookmarkIndex + j])
                             break;
 
                         ++counter;
@@ -77,7 +70,7 @@ namespace ProblemSolving
                     { 
                         for (int j = 0; j < textLength; ++j)
                         {
-                            if (processedIndexes.Contains(j))
+                            if (processedIndexes.Contains(bookmarkIndex + j))
                                 continue;
 
                             encryptedTextUsingSubstitutions[bookmarkIndex + j] = dictText[j];
@@ -86,8 +79,6 @@ namespace ProblemSolving
                         break;
                     }
                 }
-
-
 
                 bookmarkIndex = i + 1;
             }
