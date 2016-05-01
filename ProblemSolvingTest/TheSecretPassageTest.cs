@@ -38,8 +38,8 @@ namespace ProblemSolvingTest
                 new[] { 0, 0, 0, 0 },
             });
 
-            string expectedStr = expected.GetArrayString();
-            string retStr = ret.GetArrayString();
+            string expectedStr = Extensions.ToString(expected);
+            string retStr = Extensions.ToString(ret);
 
             Assert.AreEqual(expectedStr, retStr);
 
@@ -59,8 +59,8 @@ namespace ProblemSolvingTest
                 new[] { 1, 1, 1, 1 },
             });
 
-            retStr = ret.GetArrayString();
-            expectedStr = expected.GetArrayString();
+            retStr = Extensions.ToString(ret);
+            expectedStr = Extensions.ToString(expected);
 
             Assert.AreEqual(expectedStr, retStr);
         }
@@ -106,8 +106,8 @@ namespace ProblemSolvingTest
             {
                 Assert.AreEqual(2, perm.Count);
 
-                var firstBlueprint = perm[0][0].GetArrayString();
-                var secondBlueprint = perm[1][0].GetArrayString();
+                var firstBlueprint = Extensions.ToString(perm[0][0]);
+                var secondBlueprint = Extensions.ToString(perm[1][0]);
             }
         }
 

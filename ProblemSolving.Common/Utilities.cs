@@ -1,32 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProblemSolving.Common
 {
     public static class Utilities
     {
-        public static string GetArrayString(this int[][] input)
-        {
-            int inputLength = input.Length;
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < inputLength; ++i)
-            {
-                for (int j = 0; j < inputLength; ++j)
-                {
-                    sb.Append(input[i][j]);
-                    sb.Append(", ");
-                }
-
-                sb.AppendLine();
-            }
-
-            return sb.ToString();
-        }
-
         public static bool DecrementPermutationSet(int[] permutationSetsLength, int[] permutationSetsMaxLength)
         {
             for (int i = permutationSetsLength.Length - 1; i >= 0; --i)
@@ -86,6 +64,64 @@ namespace ProblemSolving.Common
 
                 ret.Add(perm);
             } while (DecrementPermutationSet(permutationSetLengths, permutationSetMaxLengths));
+
+            return ret;
+        }
+
+        private static int GetMinimalNumberNotExistingInSet(int[] set, int? startingNumber = null)
+        {
+            int ret = startingNumber ?? 0;
+
+            while (set.Contains(ret))
+                ++ret;
+
+            return ret;
+        }
+
+        public static bool IncrementSearchIndexes(int[] searchIndexes, int length, bool indexNotOverlapped = false)
+        {
+            for (int i = searchIndexes.Length - 1; i >= 0; --i)
+            {
+                int calculatedValue = searchIndexes[i] + 1;
+                
+                if (calculatedValue == length)
+                {
+                    searchIndexes[i] = 0;
+
+                    continue;
+                }
+
+                searchIndexes[i] = calculatedValue;
+
+                if (indexNotOverlapped && searchIndexes.Length != searchIndexes.Distinct().Count())
+                    return IncrementSearchIndexes(searchIndexes, length, true);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public static IEnumerable<T[]> GetCombination<T>(IEnumerable<T> inputSet, int outputSetLength)
+        {
+            List<T[]> ret = new List<T[]>();
+            int inputSetCount = inputSet.Count();
+
+            int[] searchIndexes = new int[outputSetLength];
+            for (int i = 0; i < outputSetLength; ++i)
+                searchIndexes[i] = i;
+
+            do
+            {
+                T[] row = new T[outputSetLength];
+
+                for (int i = 0; i < outputSetLength; ++i)
+                    row[i] = inputSet.ElementAt(searchIndexes[i]);
+
+                if (!Extensions.Contains(ret, row))
+                    ret.Add(row);
+            }
+            while (IncrementSearchIndexes(searchIndexes, inputSetCount, true));
 
             return ret;
         }

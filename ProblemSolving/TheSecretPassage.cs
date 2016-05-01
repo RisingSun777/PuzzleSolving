@@ -1,5 +1,4 @@
 ﻿using ProblemSolving.Common;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -59,7 +58,7 @@ namespace ProblemSolving
             return true;
         }
 
-        //TODO: Limit the number of redundant permutations
+        //TODO: Limit the number of redundant permutations, implement caching
         public List<List<int[][][]>> GetBlueprintPermutations(List<int[][]> blueprints)
         {
             List<int[][][]> fourShadesOfBlueprints = new List<int[][][]>();
