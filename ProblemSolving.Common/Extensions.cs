@@ -15,7 +15,7 @@ namespace ProblemSolving.Common
             Console.WriteLine();
         }
 
-        public static bool Contains<T>(this IEnumerable<T[]> list, T[] itemToCheck)
+        public static bool IsContainedWith<T>(this IEnumerable<T[]> list, T[] itemToCheck)
         {
             int itemToCheckCount = itemToCheck.Count();
 

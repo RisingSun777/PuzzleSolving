@@ -118,7 +118,7 @@ namespace ProblemSolving.Common
                 for (int i = 0; i < outputSetLength; ++i)
                     row[i] = inputSet.ElementAt(searchIndexes[i]);
 
-                if (!Extensions.Contains(ret, row))
+                if (!ret.IsContainedWith(row))
                     ret.Add(row);
             }
             while (IncrementSearchIndexes(searchIndexes, inputSetCount, true));
