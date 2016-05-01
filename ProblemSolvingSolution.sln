@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{E07FD583-2874-4A56-AFC4-30019FC020E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanConverterByCLI", "ConsoleApplication1\RomanConverterByCLI.csproj", "{E07FD583-2874-4A56-AFC4-30019FC020E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProblemSolving", "ProblemSolving\ProblemSolving.csproj", "{82D149C3-C676-44B6-885D-D55C900C09C6}"
 EndProject
