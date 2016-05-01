@@ -52,10 +52,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TheSecretPassageTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BloodyTextTest.cs" />
+    <Compile Include="TrivialTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProblemSolving.Common\ProblemSolving.Common.csproj">
+      <Project>{6d065d2e-e951-41a0-bedd-9fb37cea6804}</Project>
+      <Name>ProblemSolving.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProblemSolving\ProblemSolving.csproj">
       <Project>{82d149c3-c676-44b6-885d-d55c900c09c6}</Project>
       <Name>ProblemSolving</Name>
